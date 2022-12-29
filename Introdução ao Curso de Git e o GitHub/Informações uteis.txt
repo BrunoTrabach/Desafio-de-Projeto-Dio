@@ -1,0 +1,13 @@
+1º - Baixar GitHub e GitBash (GitBash ja vem integrado na instalação do GitHub)
+<= Link's => 
+GitHub - https://gitforwindows.org/
+GitBash - https://gitforwindows.org/
+
+2º - Instalar Primeiro o GitHub na sua maquina
+
+3º - Instalar GitBash
+
+4º - Execute o programa e forneção suas credenciais que voçê criou no site do GitHub. 
+Site Oficial - https://github.com/
+
+Obs: Importante realizar o cadastro no site do GitHub e após ja poderá salvar seus projetos, para complementar as projetos futuros.
