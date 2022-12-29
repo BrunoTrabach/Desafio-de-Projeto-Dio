@@ -1,1 +1,72 @@
-https://dev.to/dxwebster/como-conectar-ao-github-com-chaves-ssh-1i41
+Segue Passos.
+
+**** Como configurar o SSH no Github? ****
+# GitHub
+# Git Bash
+# Chave SSH
+
+O SSH é um protocolo de rede que permite que a conexão com determinados servidores por meio de uma comunicação criptografada, trazendo um alto nivel de segurança para as transações.
+
+O que é Github => GitHub é um serviço baseado em nuvem que hospeda um sistema de controle de versão (VCS) chamado Git, Também é considerado é uma ferramenta essencial para engenheiros de software e desenvolvedores em geral. Ele ainda permite que você crie chaves SSH para que você gerencie maneira remota, com segurança e sem precisar fornecer seu nome de usuário e/ou seu token pessoal smpre que quiser acessar ou realizar alguma alteração.
+
+O site do Github possui todas as informações de configuração cintidas aqui.
+
+Neste tutorial foi utilizados explicações para facilitar o entendimento.
+
+Isso me ajudou a compreender melhor o que é cada coisa, ao invés de só copiar e colar comandos no terminal sem saber o que eles significam. E quem sabe esse resumo pode ser útil pra você também?
+
+** Terminal
+Para executar os comandos deste tutorial, você já deve ter o git instalado na máquina e utilizar o terminal "Git Bash".
+
+** Chaves já existentes
+O primeiro passo é executar um comando para saber se já existem chaves ssh na máquina. Por padrão o nome delas devem ser um desses: "id_rsa.pub", "id_ecdsa.pub" ou "id_ed25519.pub".
+
+Para listar as existentes, executar o comando: ls -al ~/.ssh
+
+O comando acima exibe a lista das chaves ed25519 já existentes na maquina.
+
+** Gerar uma nova chave
+Caso não exista nenhum par de chaves existentes, precisamos gerar um novo par de chaves. 
+OBS: Falamos "par de chaves" porque assim que gerarmos uma chave, serão criados dois arquivos, um público (.pub) e um privado. 
+
+O conteúdo do arquivo público é o que futuramente colocaremos no github para fazer a conexão.
+
+Para criar uma chave ed25519, executar: ssh-keygen -t ed25519 -C "your_email@example.com"
+Para criar uma chave rsa, executar: ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+
+** Criação de um novo par de chaves rsa.
+
+*** Adicionar chave privada no ssh-agent
+O ssh-agent é um gerenciador de chaves ssh. Para que a conexão funcione, devemos adicionar a chave privada nesse gerenciador. Para isso vamos executar os códigos:
+
+** Rodar o ssh-agent: eval $(ssh-agent -s)
+Incluir a chave privada: ssh-add ~/.ssh/id_ed25519
+
+** Copiar chave pública
+Agora que já adicionamos a chave privada no ssh-agent, vamos copiar a chave pública que faz par com ela, para incluirmos no nosso github. 
+Vamos Fazer isto mesmo terminal executar.
+
+--- Se você utiliza o SO Windows utilize estes comandos: clip < ~/.ssh/id_ed25519.pub. (A sua chave pública será copiada automaticamente para a área de transferência e estará pronta para o próximo passo.)
+--- Por sua vêz no sistema Linux o comando e diferente: cat ~/.ssh/id_ed25519.pub. (Neste caso sua chave pública ficará disponivel no terminal para que você selecione e copie.)
+--- No MacOS o comando tambem é outro porem mesmo final: pbcopy < ~/.ssh/id_ed25519.pub
+
+** Adicionar chave no Github
+Abra o Github e vá no ícone de perfil > Settings, no canto superior direito.
+Na barra lateral de configurações do usuário, clique em "SSH and GPG keys".
+Clique no botão "New SSH key"
+No campo "Título", Descreva um rótulo para sua chave. 
+	Exemplo: Suponhamos que esteja usando um computador pessoal, você rotular sua chave de "Computador pessoal" Ou "Pc pessoal.
+Então cole a chave pública que copiamos e esta na área de transferência no campo de nome "Chave" logo na caixa abaixo.
+
+Clique em "Add SSH key" Chave salva com Sucesso!
+
+** Agora podemos realizar um teste da conexão SSH.
+Execute o seguinte comando no terminal: ssh -T git@github.com
+
+Vamos aguardar os dialogos em seguida digite "yes" para continuar.
+Verifique se o resultado da mensagem contém o seu nome de usuário e se sua autenticação foi realizada com sucesso.
+
+Caso Tenha ocorrido tudo certo Parabêns, agora é só criar seus projetos e repositórios.
+
+
+
